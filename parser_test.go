@@ -10,9 +10,10 @@ import (
 )
 
 type TestStruct struct {
-	Port     int           `default:"1357"`
-	Greeting string        `friendly:"howdy"`
-	MaxWait  time.Duration `default:"5m"`
+	Port           int           `default:"1357"`
+	Greeting       string        `friendly:"howdy"`
+	MaxWait        time.Duration `default:"5m"`
+	EnableGreeting bool          `default:"true"`
 	// wrapped int
 	BestMonth               time.Month `default:"11"` // november
 	BackToTheFuture         time.Time  `dest:"1985-10-26T09:00:00-07:00"`
@@ -151,6 +152,21 @@ func Test_getFieldTag(t *testing.T) {
 				Tag:  `friendly:"howdy"`,
 			},
 			want1:   "howdy",
+			wantErr: false,
+		},
+		{
+			name: "get bool",
+			args: args{
+				fieldName: "EnableGreeting",
+				tagName:   "default",
+				t:         ConfigStruct,
+			},
+			want: reflect.StructField{
+				Name: "EnableGreeting",
+				Type: ToReflectType(false),
+				Tag:  `default:"true"`,
+			},
+			want1:   true,
 			wantErr: false,
 		},
 		{
