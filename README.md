@@ -14,7 +14,7 @@ no external dependencies are used.
 
 example using viper in conjunction with patchpanel to load configuration onto a struct
 
-```
+```go
 package main
 
 import (
