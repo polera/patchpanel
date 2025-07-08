@@ -79,6 +79,11 @@ func NewPatchPanel(tokenSeparator string, keyValueSeparator string) *PatchPanel 
 				return v, nil
 			},
 
+			// bool
+			reflect.TypeOf(true): func(v string, parserHints map[string]any) (any, error) {
+				return strconv.ParseBool(v)
+			},
+
 			// int
 			reflect.TypeOf(0): func(v string, parserHints map[string]any) (any, error) {
 				return strconv.Atoi(v)
